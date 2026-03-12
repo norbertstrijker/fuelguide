@@ -1,0 +1,404 @@
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  padding: 16px 24px;
+  background: var(--wit);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+}
+
+.logoIcon { font-size: 24px; }
+
+.logoTekst {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--groen);
+  letter-spacing: -0.5px;
+}
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, var(--groen) 0%, var(--groen-mid) 100%);
+  padding: 64px 24px 48px;
+  text-align: center;
+  color: var(--wit);
+}
+
+.titel {
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.accent {
+  color: var(--oranje-licht);
+}
+
+.subtitel {
+  font-size: 18px;
+  opacity: 0.85;
+  margin-bottom: 32px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Zoekbalk */
+.zoekForm { max-width: 600px; margin: 0 auto 16px; }
+
+.zoekWrapper {
+  display: flex;
+  gap: 0;
+  background: var(--wit);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+
+.zoekInput {
+  flex: 1;
+  padding: 16px 20px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  color: var(--tekst);
+  background: transparent;
+}
+
+.zoekInput::placeholder { color: #9ca3af; }
+
+.zoekKnop {
+  padding: 16px 28px;
+  background: var(--oranje);
+  color: var(--wit);
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background 0.15s;
+  min-width: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zoekKnop:hover:not(:disabled) { background: #d4563b; }
+.zoekKnop:disabled { opacity: 0.7; }
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Voorbeelden */
+.voorbeelden {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.voorbeeldBtn {
+  padding: 6px 14px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  color: var(--wit);
+  font-size: 13px;
+  transition: background 0.15s;
+}
+
+.voorbeeldBtn:hover { background: rgba(255,255,255,0.25); }
+
+/* Resultaat */
+.resultaatBlok {
+  max-width: 720px;
+  margin: 40px auto;
+  padding: 0 24px;
+  width: 100%;
+}
+
+.machineKaart {
+  background: var(--wit);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+  border: 1px solid var(--border);
+}
+
+.machineHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.machineLabel {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--groen-mid);
+}
+
+.machineNaam {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--groen);
+  margin: 4px 0;
+  letter-spacing: -0.5px;
+}
+
+.machineCategorie {
+  font-size: 13px;
+  color: var(--grijs);
+  text-transform: capitalize;
+}
+
+.motorBadge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'DM Mono', monospace;
+}
+
+.motorBadge[data-type="2-takt"] {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.motorBadge[data-type="4-takt"] {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.specs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.specItem {
+  background: var(--bg);
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+
+.specLabel {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--grijs);
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.specWaarde {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--tekst);
+}
+
+/* Producten */
+.productensectie { margin-top: 8px; }
+
+.productenTitel {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--groen);
+  margin-bottom: 16px;
+  letter-spacing: -0.3px;
+}
+
+.productenGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.productKaart {
+  background: var(--wit);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  border: 2px solid transparent;
+  transition: border-color 0.15s, transform 0.15s;
+  display: flex;
+  flex-direction: column;
+}
+
+.productKaart:hover { transform: translateY(-2px); }
+
+.productKaart[data-kwaliteit="basis"] { border-color: var(--border); }
+.productKaart[data-kwaliteit="beter"] { border-color: var(--groen-licht); }
+.productKaart[data-kwaliteit="best"]  { border-color: var(--oranje); }
+
+.productHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.productIcon { font-size: 22px; }
+
+.productKwaliteit {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--groen);
+}
+
+.productNaam {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--tekst);
+  margin-bottom: 8px;
+}
+
+.productOmschrijving {
+  font-size: 13px;
+  color: var(--grijs);
+  line-height: 1.5;
+  margin-bottom: 12px;
+  flex: 1;
+}
+
+.productPrijs {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--groen);
+  margin-bottom: 12px;
+}
+
+.productKnop {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  background: var(--groen);
+  color: var(--wit);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+
+.productKnop:hover { background: var(--groen-mid); }
+
+/* Geen resultaat */
+.geenResultaat {
+  max-width: 720px;
+  margin: 40px auto;
+  padding: 28px;
+  background: #fff7ed;
+  border-radius: var(--radius);
+  border: 1px solid #fed7aa;
+  text-align: center;
+}
+
+.geenTitel {
+  font-size: 18px;
+  font-weight: 700;
+  color: #9a3412;
+  margin-bottom: 8px;
+}
+
+.geenTekst {
+  color: #c2410c;
+  font-size: 15px;
+}
+
+/* Fout */
+.foutBlok {
+  max-width: 720px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius);
+  color: #dc2626;
+  text-align: center;
+}
+
+/* Uitleg */
+.uitleg {
+  max-width: 720px;
+  margin: 56px auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+}
+
+.uitlegStap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.uitlegNummer {
+  width: 44px;
+  height: 44px;
+  background: var(--groen);
+  color: var(--wit);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.uitlegStap p {
+  font-size: 15px;
+  color: var(--grijs);
+  line-height: 1.5;
+}
+
+/* Footer */
+.footer {
+  margin-top: auto;
+  padding: 24px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--grijs);
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 40px 16px 32px; }
+  .zoekWrapper { flex-direction: column; border-radius: 12px; }
+  .zoekKnop { border-radius: 0 0 12px 12px; padding: 14px; }
+  .machineHeader { flex-direction: column; gap: 12px; }
+  .resultaatBlok, .uitleg { padding: 0 16px; }
+}
