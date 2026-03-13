@@ -37,8 +37,7 @@ export default function Home() {
       {/* Header */}
       <header className={styles.header}>
         <div className={styles.logo}>
-          <img src="/logo.png" alt="FuelGuide logo" style={{height: "36px", width: "auto"}} />
-          <span className={styles.logoTekst}>FuelGuide</span>
+          <img src="/logo.png" alt="FuelGuide logo" style={{height: "52px", width: "auto"}} />
         </div>
       </header>
 
