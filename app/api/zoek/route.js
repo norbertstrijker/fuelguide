@@ -1,12 +1,13 @@
 import { createClient } from '@supabase/supabase-js'
 import { NextResponse } from 'next/server'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-)
-
 export async function GET(request) {
+  // Lazy init: binnen de functie zodat env vars beschikbaar zijn op request-time
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  )
+
   const { searchParams } = new URL(request.url)
   const q = searchParams.get('q')?.trim().toLowerCase()
   const taal = searchParams.get('taal') || 'nl'
@@ -15,23 +16,17 @@ export async function GET(request) {
     return NextResponse.json({ error: 'Geen zoekopdracht' }, { status: 400 })
   }
 
-  // Splits invoer in woorden: "honda hrg 416" → merk=honda, model=hrg 416
   const woorden = q.split(' ')
   const merk = woorden[0]
   const model = woorden.slice(1).join(' ')
 
-  // Zoek machine in database
-  let query = supabase
-    .from('machines')
-    .select('*')
+  let query = supabase.from('machines').select('*')
 
   if (model) {
-    // Merk + model opgegeven
     query = query
       .ilike('merk', `%${merk}%`)
       .ilike('modelnummer', `%${model}%`)
   } else {
-    // Alleen één woord — zoek in beide velden
     query = query.or(`merk.ilike.%${merk}%,modelnummer.ilike.%${merk}%`)
   }
 
@@ -50,7 +45,6 @@ export async function GET(request) {
 
   const machine = machines[0]
 
-  // Haal passende producten op
   const { data: producten } = await supabase
     .from('producten')
     .select('*')
