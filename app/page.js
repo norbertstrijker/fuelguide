@@ -97,6 +97,31 @@ export default function Home() {
         </div>
       )}
 
+      {/* Suggesties bij meerdere treffers */}
+      {resultaat && resultaat.type === 'suggesties' && (
+        <div className={styles.suggestiesBlok}>
+          <p className={styles.suggestiesTitel}>Welk model bedoel je?</p>
+          <div className={styles.suggestiesLijst}>
+            {resultaat.suggesties.map(s => (
+              <button
+                key={s.id}
+                className={styles.suggestieKnop}
+                onClick={() => {
+                  setInvoer(`${s.merk} ${s.modelnummer}`)
+                  // Direct zoeken
+                  fetch(`/api/zoek?q=${encodeURIComponent(s.merk + ' ' + s.modelnummer)}&taal=nl`)
+                    .then(r => r.json())
+                    .then(d => setResultaat(d))
+                }}
+              >
+                <span className={styles.suggestieMerk}>{s.merk} {s.modelnummer}</span>
+                <span className={styles.suggestieCategorie}>{s.categorie} · {s.motortype}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {resultaat && resultaat.gevonden && (
         <section className={styles.resultaatBlok}>
           {/* Machine info */}
@@ -104,7 +129,7 @@ export default function Home() {
             <div className={styles.machineHeader}>
               <div>
                 <span className={styles.machineLabel}>
-                  {resultaat.bron === 'ai' ? '🤖 Schatting op basis van merk & type' : '✅ Gevonden in database'}
+                  {resultaat.bron === 'database' ? '✅ Gevonden in database' : '🤖 Schatting op basis van merk & categorie'}
                 </span>
                 <h2 className={styles.machineNaam}>
                   {resultaat.machine.merk} {resultaat.machine.modelnummer}
