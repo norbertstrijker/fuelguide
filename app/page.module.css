@@ -402,3 +402,77 @@
   .machineHeader { flex-direction: column; gap: 12px; }
   .resultaatBlok, .uitleg { padding: 0 16px; }
 }
+
+
+/* Suggesties blok */
+.suggestiesBlok {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 1.5rem 2rem;
+}
+
+.suggestiesTitel {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--groen);
+  margin-bottom: 0.75rem;
+}
+
+.suggestiesLijst {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.suggestieKnop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 0.9rem 1.2rem;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+  width: 100%;
+}
+
+.suggestieKnop:hover {
+  border-color: var(--oranje);
+  background: #fff8f5;
+}
+
+.suggestieMerk {
+  font-weight: 600;
+  color: #1a1a1a;
+  font-size: 0.95rem;
+}
+
+.suggestieCategorie {
+  font-size: 0.8rem;
+  color: #6b7280;
+  text-transform: capitalize;
+}
+
+/* AI advies disclaimer */
+.aiAdvies {
+  background: #f0fdf4;
+  border-left: 3px solid var(--groen);
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.aiAdvies p {
+  margin: 0 0 0.4rem;
+  color: #374151;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.aiDisclaimer {
+  font-size: 0.8rem !important;
+  color: #6b7280 !important;
+  font-style: italic;
+}
