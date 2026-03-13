@@ -111,17 +111,35 @@ export async function GET(request) {
   const merk = woorden[0]
   const model = woorden.slice(1).join(' ')
 
-  // 1. EXACTE DATABASE LOOKUP
-  let query = supabase.from('machines').select('*')
-  if (model) {
-    query = query.ilike('merk', `%${merk}%`).ilike('modelnummer', `%${model}%`)
-  } else {
-    query = query.or(`merk.ilike.%${merk}%,modelnummer.ilike.%${merk}%`)
+  // 1. DETECTEER OF INVOER EEN CATEGORIE BEVAT
+  const categorieMatch = detecteerCategorie(q)
+  
+  // 1a. ZOEK OP MERK + CATEGORIE (bijv. "makita bladblazer")
+  let machines = null
+  if (merk && categorieMatch) {
+    const { data } = await supabase
+      .from('machines')
+      .select('*')
+      .ilike('merk', `%${merk}%`)
+      .eq('categorie', categorieMatch)
+      .limit(5)
+    machines = data
   }
-  const { data: machines } = await query.limit(5)
+
+  // 1b. ZOEK OP MERK + MODELNUMMER (bijv. "honda hrg 416")  
+  if (!machines || machines.length === 0) {
+    let query = supabase.from('machines').select('*')
+    if (model && !categorieMatch) {
+      query = query.ilike('merk', `%${merk}%`).ilike('modelnummer', `%${model}%`)
+    } else if (!categorieMatch) {
+      query = query.or(`merk.ilike.%${merk}%,modelnummer.ilike.%${merk}%`)
+    }
+    const { data } = await query.limit(5)
+    if (data && data.length > 0) machines = data
+  }
 
   // 2. MEERDERE TREFFERS → suggesties teruggeven
-  if (machines && machines.length > 1 && !model) {
+  if (machines && machines.length > 1 && (!model || categorieMatch)) {
     await supabase.from('zoekopdrachten').insert({ invoer: q, gevonden: true, taal })
     return NextResponse.json({
       gevonden: true,
