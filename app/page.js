@@ -90,10 +90,9 @@ export default function Home() {
 
       {resultaat && !resultaat.gevonden && (
         <div className={styles.geenResultaat}>
-          <p className={styles.geenTitel}>Niet gevonden in onze database</p>
+          <p className={styles.geenTitel}>Niet gevonden</p>
           <p className={styles.geenTekst}>
-            We hebben <strong>{resultaat.invoer}</strong> nog niet in ons systeem.
-            Probeer alleen het modelnummer, of controleer de schrijfwijze.
+            We konden <strong>{resultaat.invoer}</strong> niet vinden. Controleer het merk en modelnummer en probeer opnieuw.
           </p>
         </div>
       )}
@@ -104,7 +103,9 @@ export default function Home() {
           <div className={styles.machineKaart}>
             <div className={styles.machineHeader}>
               <div>
-                <span className={styles.machineLabel}>Gevonden machine</span>
+                <span className={styles.machineLabel}>
+                  {resultaat.bron === 'ai' ? '🤖 Schatting op basis van merk & type' : '✅ Gevonden in database'}
+                </span>
                 <h2 className={styles.machineNaam}>
                   {resultaat.machine.merk} {resultaat.machine.modelnummer}
                 </h2>
