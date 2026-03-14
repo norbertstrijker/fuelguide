@@ -122,7 +122,7 @@ export default function Home() {
         </div>
       )}
 
-      {resultaat && resultaat.gevonden && (
+      {resultaat && resultaat.gevonden && resultaat.type === 'resultaat' && (
         <section className={styles.resultaatBlok}>
           {/* Machine info */}
           <div className={styles.machineKaart}>
