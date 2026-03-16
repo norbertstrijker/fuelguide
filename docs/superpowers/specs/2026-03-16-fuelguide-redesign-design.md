@@ -57,8 +57,7 @@ app/
 │   │       └── page.js        → Machine detail page
 │   └── not-found.js           → 404 page per language
 ├── api/
-│   ├── zoek/route.js          → Search API (existing, improved)
-│   └── ai-review/route.js     → AI learning loop: review saved estimates
+│   └── zoek/route.js          → Search API (existing, improved; includes AI fallback)
 └── middleware.js               → Language detection + redirect
 ```
 
@@ -80,8 +79,34 @@ Category slugs are translated per language. Machine slugs are universal.
 | Kettingzagen | kettingzagen | kettensaegen | chainsaws |
 | Bladblazers | bladblazers | laubblaesers | leaf-blowers |
 | Heggenscharen | heggenscharen | heckenscheren | hedge-trimmers |
+| Bosmaaiers | bosmaaiers | freischneider | brush-cutters |
+| Generatoren | generatoren | generatoren | generators |
 
 Machine slugs (e.g. `honda-hrg-416`) are the same across all locales.
+
+### 3.6 Category Slug Config (`lib/categories.js`)
+
+Central config used for routing, breadcrumbs, language switching, and sitemap generation:
+
+```js
+export const CATEGORIES = {
+  grasmaaiers: {
+    slugs: { nl: 'grasmaaiers', de: 'rasenmaeher', en: 'lawn-mowers' },
+    names: { nl: 'Grasmaaiers', de: 'Rasenmäher', en: 'Lawn Mowers' },
+  },
+  kettingzagen: {
+    slugs: { nl: 'kettingzagen', de: 'kettensaegen', en: 'chainsaws' },
+    names: { nl: 'Kettingzagen', de: 'Kettensägen', en: 'Chainsaws' },
+  },
+  // ... same pattern for all categories
+}
+
+// Reverse lookup: given a locale slug, find the category key
+export function categoryFromSlug(slug, locale) { ... }
+
+// Translate: given a category key, get the slug for a target locale
+export function categorySlug(key, locale) { ... }
+```
 
 ### 3.5 Navigation
 
@@ -127,6 +152,7 @@ This is the most important page — this is where revenue is generated.
    - Product image above each card (when available)
    - Short bullet points instead of running text
    - Affiliate button: "Bekijk op bol.com" / "Auf Amazon.de ansehen" / "View on Amazon"
+   - **Empty state:** When no products exist for a motortype+market combination, show generic fuel advice text only (e.g. "Use E10 unleaded petrol") without product cards. No broken UI.
 6. **Related models** — "Other [brand] machines" with links (internal SEO linking)
 7. **Share button** — "Share this advice" (copies URL)
 
@@ -140,9 +166,9 @@ Same layout as machine detail page. No visual distinction for the visitor. The s
 2. API returns result + category slug + machine slug
 3. Frontend redirects to `/nl/grasmaaiers/honda-hrg-416`
 4. Multiple results: show suggestions, click redirects to detail page
-5. Not found + AI fallback: redirect to dynamically rendered detail page
+5. Not found + AI fallback: result is shown inline on the search page (no redirect, since there is no permanent URL yet). The AI estimate is saved to `ai_schattingen`. Once approved by Norbert, the machine gets a permanent detail page URL.
 
-Every search leads to a shareable URL with full SEO value.
+Database results lead to a shareable URL with full SEO value. AI fallback results are shown inline until approved.
 
 ## 5. AI Fallback & Learning Loop
 
@@ -153,14 +179,20 @@ Visitor searches "Makita DCS 5030"
     ↓
 1. Database lookup → not found
     ↓
-2. Rule-based fallback → brand known, category unknown → no reliable result
+2. Rule-based fallback → returns result with betrouwbaarheid field
+   - 'hoog': known brand + known category → use this result, skip AI
+   - 'middel': known category, unknown brand → use this result, skip AI
+   - 'laag': motortype === 'onbekend' → trigger AI fallback
     ↓
-3. Claude API call (Haiku) → "chainsaw, 2-stroke, 50:1, E10 compatible"
+3. (Only when betrouwbaarheid === 'laag')
+   Claude API call (Haiku) → "chainsaw, 2-stroke, 50:1, E10 compatible"
     ↓
 4. Show result to visitor (same layout as database result)
     ↓
 5. Save to `ai_schattingen` table with status "pending_review"
 ```
+
+The AI fallback is only triggered when the rule-based system cannot determine the motor type at all (`motortype === 'onbekend'`). When rules produce a result with high or medium confidence, the AI is not called.
 
 ### 5.2 New Database Table: `ai_schattingen`
 
@@ -266,8 +298,9 @@ components/
 
 ### 8.3 Machine Detail Page
 - Server-side: machine + products from Supabase
-- Also statically generatable → Google sees full HTML
-- Fallback: if slug not in database → API call with AI fallback
+- Uses `generateStaticParams` for all known machines → Google sees full HTML
+- `dynamicParams = false` — unknown slugs return 404. Only approved machines get detail pages.
+- AI fallback results are shown inline on the search page, not on their own URL (see section 4.5)
 
 ### 8.4 Search API
 - Existing logic, improved
@@ -302,6 +335,13 @@ components/
 - New field on `machines`: `afbeelding_url` (nullable text)
 - New field on `machines`: `slug` (text, unique, e.g. "honda-hrg-416")
 
+**Slug generation rule:** `lowercase(merk)-lowercase(modelnummer)` with spaces replaced by hyphens, special characters removed. Examples:
+- Honda HRG 416 → `honda-hrg-416`
+- Stihl MS 250 → `stihl-ms-250`
+- Husqvarna 125B → `husqvarna-125b`
+
+Existing records must be backfilled with generated slugs via a migration script before the new routing goes live.
+
 ### 10.3 Files to Create
 - `middleware.js` — language detection + redirect
 - `messages/nl.json`, `messages/de.json`, `messages/en.json` — translations
@@ -310,7 +350,7 @@ components/
 - `app/[locale]/page.js` — homepage
 - `app/[locale]/[categorie]/page.js` — category overview
 - `app/[locale]/[categorie]/[machine]/page.js` — machine detail
-- `app/api/ai-review/route.js` — AI review endpoint
+- `lib/supabase-server.js` — server-side Supabase client (singleton, used by all server components and API routes)
 - All components listed in section 7
 
 ### 10.4 Files to Remove
@@ -318,7 +358,31 @@ components/
 - `app/page.module.css` — replaced by Tailwind classes
 - `app/globals.css` — replaced by Tailwind base styles
 
-## 11. Implementation Order
+## 11. SEO
+
+### 11.1 Sitemap
+
+Generated dynamically via `app/sitemap.js` using Next.js built-in sitemap support. Includes:
+- All locale homepages (`/nl/`, `/de/`, `/en/`)
+- All category pages per locale
+- All machine detail pages per locale
+- hreflang alternates linking translations
+
+### 11.2 Robots.txt
+
+Generated via `app/robots.js`:
+- Allow all crawlers
+- Reference sitemap URL
+- Disallow `/api/` routes
+
+### 11.3 Meta Tags
+
+Each page generates unique meta title and description per locale:
+- Homepage: "FuelGuide — Juiste brandstof voor jouw machine"
+- Category: "Grasmaaiers brandstof — welke benzine of olie?"
+- Machine: "Honda HRG 416 brandstof — E10 ongelode benzine"
+
+## 12. Implementation Order
 
 1. **Tailwind + shadcn/ui setup** — replace CSS modules with Tailwind
 2. **next-intl setup** — locale routing, translation files, middleware
