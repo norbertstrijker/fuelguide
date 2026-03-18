@@ -150,7 +150,9 @@ export async function GET(request) {
         merk: m.merk,
         modelnummer: m.modelnummer,
         categorie: m.categorie,
-        motortype: m.motortype
+        motortype: m.motortype,
+        slug: m.slug,
+        afbeelding_url: m.afbeelding_url
       }))
     })
   }
