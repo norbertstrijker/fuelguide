@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import { useRouter, usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { CATEGORIES, categoryFromSlug } from '@/lib/categories'
+import SearchBar from '@/components/SearchBar'
 
 const LOCALE_LABELS = { nl: 'NL', de: 'DE', en: 'EN' }
 
@@ -37,7 +38,9 @@ export default function Header() {
           <span className="font-bold text-groen text-lg hidden sm:inline">FuelGuide</span>
         </Link>
 
-        {/* SearchBar will be added here in Task 6 */}
+        <div className="hidden sm:block flex-1 max-w-xs mx-4">
+          <SearchBar size="compact" />
+        </div>
 
         <div className="flex items-center gap-3">
           {Object.entries(LOCALE_LABELS).map(([loc, label]) => (
