@@ -1,5 +1,40 @@
 import { createClient } from '@supabase/supabase-js'
 import { NextResponse } from 'next/server'
+import Anthropic from '@anthropic-ai/sdk'
+
+const VALID_CATEGORIES = ['grasmaaiers', 'kettingzagen', 'bladblazers', 'heggenscharen', 'bosmaaiers', 'generatoren']
+
+async function getAIEstimate(query) {
+  try {
+    const anthropic = new Anthropic()
+    const message = await anthropic.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 256,
+      messages: [{
+        role: 'user',
+        content: `What fuel does the "${query}" use? Respond in JSON only, no markdown:
+{"merk":"brand","modelnummer":"model","categorie":"grasmaaiers|kettingzagen|bladblazers|heggenscharen|bosmaaiers|generatoren","motortype":"2-takt|4-takt","mengverhouding":"1:50 or null","e10_geschikt":true|false}
+
+IMPORTANT: categorie MUST be exactly one of: grasmaaiers, kettingzagen, bladblazers, heggenscharen, bosmaaiers, generatoren`
+      }],
+    })
+
+    const text = message.content[0].text
+    const jsonMatch = text.match(/\{[\s\S]*\}/)
+    if (!jsonMatch) return null
+
+    const result = JSON.parse(jsonMatch[0])
+
+    if (!VALID_CATEGORIES.includes(result.categorie)) {
+      result.categorie = 'generatoren'
+    }
+
+    return result
+  } catch (error) {
+    console.error('AI estimate failed:', error)
+    return null
+  }
+}
 
 // Regel-gebaseerde fallback: merk + categorie → motortype
 // Dekt 90%+ van de gevallen correct zonder externe API
@@ -180,7 +215,30 @@ export async function GET(request) {
   await supabase.from('zoekopdrachten').insert({ invoer: q, gevonden: fallback.motortype !== 'onbekend', taal })
 
   if (fallback.motortype === 'onbekend') {
-    return NextResponse.json({ gevonden: false, invoer: q })
+    // AI fallback — only when rules produce no result
+    const aiResult = await getAIEstimate(q)
+    if (!aiResult) {
+      return NextResponse.json({ gevonden: false, type: 'niet_gevonden', invoer: q })
+    }
+
+    // Save AI estimate for review
+    await supabase.from('ai_schattingen').insert({
+      invoer: q,
+      merk: aiResult.merk,
+      modelnummer: aiResult.modelnummer,
+      categorie: aiResult.categorie,
+      motortype: aiResult.motortype,
+      mengverhouding: aiResult.mengverhouding,
+      e10_geschikt: aiResult.e10_geschikt,
+      ai_response_raw: aiResult,
+    })
+
+    return NextResponse.json({
+      gevonden: true,
+      bron: 'ai',
+      type: 'ai_schatting',
+      machine: aiResult,
+    })
   }
 
   const { data: producten } = await supabase
