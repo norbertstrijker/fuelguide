@@ -1,5 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-groen: #1a472a;
+  --color-groen-light: #2d6a4f;
+  --color-groen-lighter: #40916c;
+  --color-oranje: #e76f51;
+  --color-oranje-light: #f4a261;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+}
