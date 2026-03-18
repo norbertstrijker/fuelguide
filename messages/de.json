@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "title": "FuelGuide — Der richtige Kraftstoff für Ihre Maschine",
+    "description": "Suchen Sie nach Marke und Modell und finden Sie sofort heraus, welchen Kraftstoff Ihr Rasenmäher, Ihre Kettensäge oder Ihr Laubbläser benötigt.",
+    "machine_title": "{brand} {model} Kraftstoff — FuelGuide",
+    "machine_description": "Welchen Kraftstoff braucht der {brand} {model}? Finden Sie es hier heraus."
+  },
+  "header": {
+    "search_placeholder": "Marke oder Modell suchen..."
+  },
+  "hero": {
+    "title": "Welchen Kraftstoff braucht Ihre Maschine?",
+    "subtitle": "Suchen Sie nach Marke und Modell — sofortige Antwort, kostenlos.",
+    "search_placeholder": "z.B. Honda HRG 416 oder Stihl MS 250",
+    "search_button": "Suchen"
+  },
+  "trust": {
+    "models": "80+ Modelle",
+    "free": "100% kostenlos",
+    "instant": "Sofortige Antwort",
+    "languages": "NL, DE & EN"
+  },
+  "categories": {
+    "title": "Kategorien",
+    "grasmaaiers": "Rasenmäher",
+    "kettingzagen": "Kettensägen",
+    "bladblazers": "Laubbläser",
+    "heggenscharen": "Heckenscheren",
+    "bosmaaiers": "Freischneider",
+    "generatoren": "Generatoren",
+    "models_count": "{count} Modelle"
+  },
+  "how_it_works": {
+    "title": "So funktioniert's",
+    "step1_title": "Maschine suchen",
+    "step1_text": "Geben Sie Marke und Modell Ihrer Maschine in die Suchleiste ein.",
+    "step2_title": "Kraftstoffempfehlung erhalten",
+    "step2_text": "Wir sagen Ihnen genau, welchen Kraftstoff Sie benötigen.",
+    "step3_title": "Den richtigen Kraftstoff bestellen",
+    "step3_text": "Klicken Sie weiter zum Shop und bestellen Sie direkt."
+  },
+  "fuel_advice": {
+    "uses_petrol": "Diese Maschine verwendet {fuel}",
+    "uses_mix": "Mischen Sie Benzin mit 2-Takt-Öl im Verhältnis {ratio}",
+    "e10_yes": "E10 kompatibel",
+    "e10_no": "Kein E10 — verwenden Sie Super 95",
+    "e10_unknown": "E10-Kompatibilität unbekannt"
+  },
+  "specs": {
+    "motor_type": "Motortyp",
+    "mix_ratio": "Mischungsverhältnis",
+    "e10": "E10 geeignet",
+    "build_year": "Baujahr",
+    "yes": "Ja",
+    "no": "Nein",
+    "unknown": "Unbekannt",
+    "two_stroke": "2-Takt",
+    "four_stroke": "4-Takt"
+  },
+  "products": {
+    "title": "Empfohlener Kraftstoff",
+    "basic": "Basis",
+    "better": "Besser",
+    "best": "Beste",
+    "recommended": "Empfohlen",
+    "view_on": "Auf Amazon.de ansehen",
+    "no_products": "Verwenden Sie {fuel} für diese Maschine."
+  },
+  "related": {
+    "title": "Andere {brand} Maschinen"
+  },
+  "search": {
+    "loading": "Suchen...",
+    "no_results": "Keine Ergebnisse gefunden",
+    "suggestions_title": "Mehrere Modelle gefunden",
+    "try_examples": "Versuchen Sie zum Beispiel:"
+  },
+  "share": {
+    "button": "Diese Empfehlung teilen",
+    "copied": "Link kopiert!"
+  },
+  "breadcrumbs": {
+    "home": "Startseite"
+  },
+  "category_page": {
+    "intro_grasmaaiers": "Welchen Kraftstoff braucht Ihr Rasenmäher? Suchen Sie unten nach Marke und Modell.",
+    "intro_kettingzagen": "Welchen Kraftstoff braucht Ihre Kettensäge? Suchen Sie unten nach Marke und Modell.",
+    "intro_bladblazers": "Welchen Kraftstoff braucht Ihr Laubbläser? Suchen Sie unten nach Marke und Modell.",
+    "intro_heggenscharen": "Welchen Kraftstoff braucht Ihre Heckenschere? Suchen Sie unten nach Marke und Modell.",
+    "intro_bosmaaiers": "Welchen Kraftstoff braucht Ihr Freischneider? Suchen Sie unten nach Marke und Modell.",
+    "intro_generatoren": "Welchen Kraftstoff braucht Ihr Generator? Suchen Sie unten nach Marke und Modell.",
+    "filter_placeholder": "Nach Marke oder Modell filtern...",
+    "sort_brand": "Nach Marke sortieren"
+  },
+  "footer": {
+    "copyright": "© {year} FuelGuide. Alle Rechte vorbehalten."
+  },
+  "not_found": {
+    "title": "Seite nicht gefunden",
+    "text": "Diese Seite existiert nicht. Kehren Sie zur Startseite zurück.",
+    "back_home": "Zur Startseite"
+  }
+}
