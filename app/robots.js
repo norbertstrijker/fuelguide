@@ -1,6 +1,6 @@
 export default function robots() {
   return {
-    rules: { userAgent: '*', allow: '/', disallow: '/api/' },
+    rules: { userAgent: '*', disallow: '/' },
     sitemap: 'https://fuelguide.app/sitemap.xml',
   }
 }
