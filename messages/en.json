@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "title": "FuelGuide — The right fuel for your machine",
+    "description": "Search by brand and model to instantly find out what fuel your lawn mower, chainsaw, or leaf blower needs.",
+    "machine_title": "{brand} {model} fuel — FuelGuide",
+    "machine_description": "What fuel does the {brand} {model} need? Find out here."
+  },
+  "header": {
+    "search_placeholder": "Search by brand or model..."
+  },
+  "hero": {
+    "title": "What fuel does your machine need?",
+    "subtitle": "Search by brand and model — instant answer, free.",
+    "search_placeholder": "e.g. Honda HRG 416 or Stihl MS 250",
+    "search_button": "Search"
+  },
+  "trust": {
+    "models": "80+ models",
+    "free": "100% free",
+    "instant": "Instant answer",
+    "languages": "NL, DE & EN"
+  },
+  "categories": {
+    "title": "Categories",
+    "grasmaaiers": "Lawn Mowers",
+    "kettingzagen": "Chainsaws",
+    "bladblazers": "Leaf Blowers",
+    "heggenscharen": "Hedge Trimmers",
+    "bosmaaiers": "Brush Cutters",
+    "generatoren": "Generators",
+    "models_count": "{count} models"
+  },
+  "how_it_works": {
+    "title": "How it works",
+    "step1_title": "Search your machine",
+    "step1_text": "Type the brand and model of your machine in the search bar.",
+    "step2_title": "Get fuel advice",
+    "step2_text": "We tell you exactly what fuel you need.",
+    "step3_title": "Order the right fuel",
+    "step3_text": "Click through to the shop and order directly."
+  },
+  "fuel_advice": {
+    "uses_petrol": "This machine uses {fuel}",
+    "uses_mix": "Mix petrol with 2-stroke oil at ratio {ratio}",
+    "e10_yes": "E10 compatible",
+    "e10_no": "No E10 — use premium unleaded",
+    "e10_unknown": "E10 compatibility unknown"
+  },
+  "specs": {
+    "motor_type": "Motor type",
+    "mix_ratio": "Mix ratio",
+    "e10": "E10 compatible",
+    "build_year": "Build year",
+    "yes": "Yes",
+    "no": "No",
+    "unknown": "Unknown",
+    "two_stroke": "2-stroke",
+    "four_stroke": "4-stroke"
+  },
+  "products": {
+    "title": "Recommended fuel",
+    "basic": "Basic",
+    "better": "Better",
+    "best": "Best",
+    "recommended": "Recommended",
+    "view_on": "View on Amazon",
+    "no_products": "Use {fuel} for this machine."
+  },
+  "related": {
+    "title": "Other {brand} machines"
+  },
+  "search": {
+    "loading": "Searching...",
+    "no_results": "No results found",
+    "suggestions_title": "Multiple models found",
+    "try_examples": "Try for example:"
+  },
+  "share": {
+    "button": "Share this advice",
+    "copied": "Link copied!"
+  },
+  "breadcrumbs": {
+    "home": "Home"
+  },
+  "category_page": {
+    "intro_grasmaaiers": "What fuel does your lawn mower need? Search by brand and model below.",
+    "intro_kettingzagen": "What fuel does your chainsaw need? Search by brand and model below.",
+    "intro_bladblazers": "What fuel does your leaf blower need? Search by brand and model below.",
+    "intro_heggenscharen": "What fuel does your hedge trimmer need? Search by brand and model below.",
+    "intro_bosmaaiers": "What fuel does your brush cutter need? Search by brand and model below.",
+    "intro_generatoren": "What fuel does your generator need? Search by brand and model below.",
+    "filter_placeholder": "Filter by brand or model...",
+    "sort_brand": "Sort by brand"
+  },
+  "footer": {
+    "copyright": "© {year} FuelGuide. All rights reserved."
+  },
+  "not_found": {
+    "title": "Page not found",
+    "text": "This page doesn't exist. Go back to the homepage.",
+    "back_home": "Go to homepage"
+  }
+}

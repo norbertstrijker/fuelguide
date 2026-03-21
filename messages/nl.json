@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "title": "FuelGuide — Juiste brandstof voor jouw machine",
+    "description": "Zoek op merk en model en ontdek direct welke brandstof jouw grasmaaier, kettingzaag of bladblazer nodig heeft.",
+    "machine_title": "{brand} {model} brandstof — FuelGuide",
+    "machine_description": "Welke brandstof heeft de {brand} {model} nodig? Ontdek het hier."
+  },
+  "header": {
+    "search_placeholder": "Zoek op merk of model..."
+  },
+  "hero": {
+    "title": "Welke brandstof heeft jouw machine nodig?",
+    "subtitle": "Zoek op merk en model — direct antwoord, gratis.",
+    "search_placeholder": "Bijv. Honda HRG 416 of Stihl MS 250",
+    "search_button": "Zoeken"
+  },
+  "trust": {
+    "models": "80+ modellen",
+    "free": "100% gratis",
+    "instant": "Direct antwoord",
+    "languages": "NL, DE & EN"
+  },
+  "categories": {
+    "title": "Categorieën",
+    "grasmaaiers": "Grasmaaiers",
+    "kettingzagen": "Kettingzagen",
+    "bladblazers": "Bladblazers",
+    "heggenscharen": "Heggenscharen",
+    "bosmaaiers": "Bosmaaiers",
+    "generatoren": "Generatoren",
+    "models_count": "{count} modellen"
+  },
+  "how_it_works": {
+    "title": "Zo werkt het",
+    "step1_title": "Zoek je machine",
+    "step1_text": "Typ het merk en model van je machine in de zoekbalk.",
+    "step2_title": "Krijg brandstofadvies",
+    "step2_text": "We vertellen je precies welke brandstof je nodig hebt.",
+    "step3_title": "Bestel de juiste brandstof",
+    "step3_text": "Klik door naar de webshop en bestel direct."
+  },
+  "fuel_advice": {
+    "uses_petrol": "Deze machine gebruikt {fuel}",
+    "uses_mix": "Meng benzine met 2-taktolie in verhouding {ratio}",
+    "e10_yes": "E10 compatible",
+    "e10_no": "Geen E10 — gebruik Euro 95",
+    "e10_unknown": "E10 compatibiliteit onbekend"
+  },
+  "specs": {
+    "motor_type": "Motortype",
+    "mix_ratio": "Mengverhouding",
+    "e10": "E10 geschikt",
+    "build_year": "Bouwjaar",
+    "yes": "Ja",
+    "no": "Nee",
+    "unknown": "Onbekend",
+    "two_stroke": "2-takt",
+    "four_stroke": "4-takt"
+  },
+  "products": {
+    "title": "Aanbevolen brandstof",
+    "basic": "Basis",
+    "better": "Beter",
+    "best": "Best",
+    "recommended": "Aanbevolen",
+    "view_on": "Bekijk op bol.com",
+    "no_products": "Gebruik {fuel} voor deze machine."
+  },
+  "related": {
+    "title": "Andere {brand} machines"
+  },
+  "search": {
+    "loading": "Zoeken...",
+    "no_results": "Geen resultaten gevonden",
+    "suggestions_title": "Meerdere modellen gevonden",
+    "try_examples": "Probeer bijvoorbeeld:"
+  },
+  "share": {
+    "button": "Deel dit advies",
+    "copied": "Link gekopieerd!"
+  },
+  "breadcrumbs": {
+    "home": "Home"
+  },
+  "category_page": {
+    "intro_grasmaaiers": "Welke brandstof heeft jouw grasmaaier nodig? Zoek hieronder op merk en model.",
+    "intro_kettingzagen": "Welke brandstof heeft jouw kettingzaag nodig? Zoek hieronder op merk en model.",
+    "intro_bladblazers": "Welke brandstof heeft jouw bladblazer nodig? Zoek hieronder op merk en model.",
+    "intro_heggenscharen": "Welke brandstof heeft jouw heggenschaar nodig? Zoek hieronder op merk en model.",
+    "intro_bosmaaiers": "Welke brandstof heeft jouw bosmaaier nodig? Zoek hieronder op merk en model.",
+    "intro_generatoren": "Welke brandstof heeft jouw generator nodig? Zoek hieronder op merk en model.",
+    "filter_placeholder": "Filter op merk of model...",
+    "sort_brand": "Sorteer op merk"
+  },
+  "footer": {
+    "copyright": "© {year} FuelGuide. Alle rechten voorbehouden."
+  },
+  "not_found": {
+    "title": "Pagina niet gevonden",
+    "text": "Deze pagina bestaat niet. Ga terug naar de homepage.",
+    "back_home": "Naar homepage"
+  }
+}
