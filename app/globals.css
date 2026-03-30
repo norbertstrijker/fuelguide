@@ -20,13 +20,6 @@
   --color-outline-variant: #DDC1B6;
   --color-error: #BA1A1A;
 
-  /* Keep old names as aliases for gradual migration */
-  --color-groen: #1a472a;
-  --color-groen-light: #2d6a4f;
-  --color-groen-lighter: #40916c;
-  --color-oranje: #e76f51;
-  --color-oranje-light: #f4a261;
-
   /* Typography */
   --font-sans: 'Space Grotesk', system-ui, sans-serif;
   --font-headline: 'Space Grotesk', system-ui, sans-serif;
