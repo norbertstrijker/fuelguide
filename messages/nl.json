@@ -56,7 +56,8 @@
     "no": "Nee",
     "unknown": "Onbekend",
     "two_stroke": "2-takt",
-    "four_stroke": "4-takt"
+    "four_stroke": "4-takt",
+    "view_fuel": "Bekijk brandstof"
   },
   "products": {
     "title": "Aanbevolen brandstof",

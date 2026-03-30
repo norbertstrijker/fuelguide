@@ -56,7 +56,8 @@
     "no": "No",
     "unknown": "Unknown",
     "two_stroke": "2-stroke",
-    "four_stroke": "4-stroke"
+    "four_stroke": "4-stroke",
+    "view_fuel": "View fuel"
   },
   "products": {
     "title": "Recommended Fuel",

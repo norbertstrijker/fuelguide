@@ -56,7 +56,8 @@
     "no": "Nein",
     "unknown": "Unbekannt",
     "two_stroke": "2-Takt",
-    "four_stroke": "4-Takt"
+    "four_stroke": "4-Takt",
+    "view_fuel": "Kraftstoff anzeigen"
   },
   "products": {
     "title": "Empfohlener Kraftstoff",

@@ -6,7 +6,7 @@ import { routing } from '@/i18n/routing'
 import { notFound } from 'next/navigation'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import MachineCard from '@/components/MachineCard'
-import SearchBar from '@/components/SearchBar'
+import AdSlot from '@/components/AdSlot'
 
 const BASE_URL = 'https://fuelguide.app'
 
@@ -56,35 +56,35 @@ export default async function CategoryPage({ params }) {
     .order('merk', { ascending: true })
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto px-6 py-12">
       <Breadcrumbs
         locale={locale}
         items={[{ label: categoryName, href: `/${locale}/${categorie}` }]}
       />
 
-      <h1 className="text-3xl font-bold mb-2">{categoryName}</h1>
-      <p className="text-gray-600 mb-6">
-        {t(`category_page.intro_${categoryKey}`)}
-      </p>
-
-      <div className="mb-6">
-        <SearchBar size="compact" categoryFilter={categoryKey} />
-      </div>
+      <section className="mb-12">
+        <span className="text-xs font-bold tracking-label uppercase text-on-surface-variant mb-2 block">
+          {t('category_page.intro_' + categoryKey)}
+        </span>
+        <h1 className="text-4xl md:text-6xl font-bold tracking-display leading-none">{categoryName}</h1>
+      </section>
 
       {machines && machines.length > 0 ? (
-        <div className="grid sm:grid-cols-2 gap-3">
-          {machines.map((machine) => (
-            <MachineCard
-              key={machine.id}
-              machine={machine}
-              locale={locale}
-              categorySlug={categorie}
-            />
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          <div className="md:col-span-8">
+            <MachineCard machine={machines[0]} locale={locale} categorySlug={categorie} featured={true} />
+          </div>
+          {machines.slice(1).map((machine) => (
+            <div key={machine.id} className="md:col-span-4">
+              <MachineCard machine={machine} locale={locale} categorySlug={categorie} />
+            </div>
           ))}
         </div>
       ) : (
-        <p className="text-gray-500">{t('search.no_results')}</p>
+        <p className="text-on-surface-variant">{t('search.no_results')}</p>
       )}
+
+      <AdSlot id="ad-slot-category" />
     </div>
   )
 }
