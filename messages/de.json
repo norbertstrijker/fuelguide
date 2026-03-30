@@ -44,7 +44,8 @@
     "uses_mix": "Mischen Sie Benzin mit 2-Takt-Öl im Verhältnis {ratio}",
     "e10_yes": "E10 kompatibel",
     "e10_no": "Kein E10 — verwenden Sie Super 95",
-    "e10_unknown": "E10-Kompatibilität unbekannt"
+    "e10_unknown": "E10-Kompatibilität unbekannt",
+    "requirement": "Kraftstoffanforderung"
   },
   "specs": {
     "motor_type": "Motortyp",
@@ -59,15 +60,27 @@
   },
   "products": {
     "title": "Empfohlener Kraftstoff",
-    "basic": "Basis",
-    "better": "Besser",
-    "best": "Beste",
-    "recommended": "Empfohlen",
-    "view_on": "Auf Amazon.de ansehen",
+    "basic": "Günstig",
+    "better": "Beste Wahl",
+    "best": "Premium",
+    "recommended": "Beste Wahl",
+    "view_on": "Ansehen auf {platform}",
     "no_products": "Verwenden Sie {fuel} für diese Maschine."
   },
   "related": {
     "title": "Andere {brand} Maschinen"
+  },
+  "brands": {
+    "title": "Beliebte Marken",
+    "search_brand": "Suche {brand}"
+  },
+  "brand_products": {
+    "title": "Weitere {brand} Produkte",
+    "view_product": "Produkt ansehen"
+  },
+  "geo": {
+    "your_region": "Ihre Region",
+    "change_country": "Land ändern"
   },
   "search": {
     "loading": "Suchen...",

@@ -44,7 +44,8 @@
     "uses_mix": "Meng benzine met 2-taktolie in verhouding {ratio}",
     "e10_yes": "E10 compatible",
     "e10_no": "Geen E10 — gebruik Euro 95",
-    "e10_unknown": "E10 compatibiliteit onbekend"
+    "e10_unknown": "E10 compatibiliteit onbekend",
+    "requirement": "Brandstofvereiste"
   },
   "specs": {
     "motor_type": "Motortype",
@@ -59,15 +60,27 @@
   },
   "products": {
     "title": "Aanbevolen brandstof",
-    "basic": "Basis",
-    "better": "Beter",
-    "best": "Best",
-    "recommended": "Aanbevolen",
-    "view_on": "Bekijk op bol.com",
+    "basic": "Voordelig",
+    "better": "Beste keuze",
+    "best": "Premium",
+    "recommended": "Beste keuze",
+    "view_on": "Bekijk op {platform}",
     "no_products": "Gebruik {fuel} voor deze machine."
   },
   "related": {
     "title": "Andere {brand} machines"
+  },
+  "brands": {
+    "title": "Populaire merken",
+    "search_brand": "Zoek {brand}"
+  },
+  "brand_products": {
+    "title": "Bekijk ook deze {brand} producten",
+    "view_product": "Bekijk product"
+  },
+  "geo": {
+    "your_region": "Jouw regio",
+    "change_country": "Land wijzigen"
   },
   "search": {
     "loading": "Zoeken...",

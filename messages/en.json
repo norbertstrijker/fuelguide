@@ -44,7 +44,8 @@
     "uses_mix": "Mix petrol with 2-stroke oil at ratio {ratio}",
     "e10_yes": "E10 compatible",
     "e10_no": "No E10 — use premium unleaded",
-    "e10_unknown": "E10 compatibility unknown"
+    "e10_unknown": "E10 compatibility unknown",
+    "requirement": "Fuel Requirement"
   },
   "specs": {
     "motor_type": "Motor type",
@@ -58,16 +59,28 @@
     "four_stroke": "4-stroke"
   },
   "products": {
-    "title": "Recommended fuel",
-    "basic": "Basic",
-    "better": "Better",
-    "best": "Best",
-    "recommended": "Recommended",
-    "view_on": "View on Amazon",
+    "title": "Recommended Fuel",
+    "basic": "Value",
+    "better": "Best Choice",
+    "best": "Premium",
+    "recommended": "Best Choice",
+    "view_on": "View on {platform}",
     "no_products": "Use {fuel} for this machine."
   },
   "related": {
     "title": "Other {brand} machines"
+  },
+  "brands": {
+    "title": "Popular Brands",
+    "search_brand": "Search {brand}"
+  },
+  "brand_products": {
+    "title": "More {brand} products",
+    "view_product": "View product"
+  },
+  "geo": {
+    "your_region": "Your region",
+    "change_country": "Change country"
   },
   "search": {
     "loading": "Searching...",
