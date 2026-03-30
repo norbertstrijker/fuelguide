@@ -10,16 +10,16 @@ export default function Breadcrumbs({ locale, items }) {
   const crumbs = [{ label: t('home'), href: `/${locale}` }, ...items]
 
   return (
-    <nav className="flex items-center gap-1 text-sm text-gray-500 mb-4">
+    <nav className="flex items-center gap-1 text-sm text-on-surface-variant mb-6">
       {crumbs.map((crumb, i) => (
         <span key={i} className="flex items-center gap-1">
-          {i > 0 && <ChevronRight className="w-3 h-3" />}
+          {i > 0 && <ChevronRight className="w-3 h-3 text-outline" />}
           {i < crumbs.length - 1 ? (
-            <Link href={crumb.href} className="hover:text-groen">
+            <Link href={crumb.href} className="hover:text-primary transition-colors">
               {crumb.label}
             </Link>
           ) : (
-            <span className="text-gray-900 font-medium">{crumb.label}</span>
+            <span className="text-on-surface font-bold">{crumb.label}</span>
           )}
         </span>
       ))}

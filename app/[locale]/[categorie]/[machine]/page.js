@@ -6,9 +6,10 @@ import { routing } from '@/i18n/routing'
 import { notFound } from 'next/navigation'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import FuelAdvice from '@/components/FuelAdvice'
-import ProductCards from '@/components/ProductCards'
+import GeoProductSection from '@/components/GeoProductSection'
 import RelatedMachines from '@/components/RelatedMachines'
 import ShareButton from '@/components/ShareButton'
+import AdSlot from '@/components/AdSlot'
 
 const BASE_URL = 'https://fuelguide.app'
 
@@ -73,13 +74,6 @@ export default async function MachineDetailPage({ params }) {
 
   if (!machine) notFound()
 
-  const { data: products } = await supabaseServer
-    .from('producten')
-    .select('*')
-    .eq('motortype', machine.motortype)
-    .eq('markt', locale)
-    .order('kwaliteit', { ascending: true })
-
   const { data: relatedMachines } = await supabaseServer
     .from('machines')
     .select('*')
@@ -87,12 +81,9 @@ export default async function MachineDetailPage({ params }) {
 
   const t = await getTranslations({ locale })
   const categoryName = t(`categories.${categoryKey}`)
-  const tSpecs = await getTranslations({ locale, namespace: 'specs' })
-
-  const fuelLabel = machine.e10_geschikt ? 'E10' : 'Euro 95'
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto px-6 py-12">
       <Breadcrumbs
         locale={locale}
         items={[
@@ -101,60 +92,26 @@ export default async function MachineDetailPage({ params }) {
         ]}
       />
 
-      <div className="flex items-start gap-6 mb-6">
-        {machine.afbeelding_url ? (
-          <img
-            src={machine.afbeelding_url}
-            alt={`${machine.merk} ${machine.modelnummer}`}
-            className="w-24 h-24 sm:w-32 sm:h-32 object-contain flex-shrink-0"
-          />
-        ) : (
-          <div className="w-24 h-24 sm:w-32 sm:h-32 bg-gray-100 rounded-lg flex items-center justify-center text-4xl flex-shrink-0">
-            🔧
-          </div>
-        )}
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold">
-            {machine.merk} {machine.modelnummer}
-          </h1>
-          <p className="text-gray-500">{categoryName}</p>
+      <header className="mb-16">
+        <div className="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-highest text-on-surface-variant rounded mb-4">
+          <span className="text-[10px] font-bold tracking-label uppercase">
+            {categoryName}
+          </span>
         </div>
-      </div>
+        <h1 className="text-5xl lg:text-7xl font-bold tracking-display leading-none uppercase">
+          {machine.merk} {machine.modelnummer}
+        </h1>
+      </header>
 
-      <div className="mb-8">
+      <div className="mb-16">
         <FuelAdvice machine={machine} />
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-        <div className="bg-gray-50 rounded-lg p-4 text-center">
-          <p className="text-xs text-gray-500 mb-1">{tSpecs('motor_type')}</p>
-          <p className="font-semibold">{tSpecs(machine.motortype === '2-takt' ? 'two_stroke' : 'four_stroke')}</p>
-        </div>
-        {machine.mengverhouding && (
-          <div className="bg-gray-50 rounded-lg p-4 text-center">
-            <p className="text-xs text-gray-500 mb-1">{tSpecs('mix_ratio')}</p>
-            <p className="font-semibold">{machine.mengverhouding}</p>
-          </div>
-        )}
-        <div className="bg-gray-50 rounded-lg p-4 text-center">
-          <p className="text-xs text-gray-500 mb-1">{tSpecs('e10')}</p>
-          <p className="font-semibold">
-            {machine.e10_geschikt === true ? tSpecs('yes') : machine.e10_geschikt === false ? tSpecs('no') : tSpecs('unknown')}
-          </p>
-        </div>
-        {machine.bouwjaar && (
-          <div className="bg-gray-50 rounded-lg p-4 text-center">
-            <p className="text-xs text-gray-500 mb-1">{tSpecs('build_year')}</p>
-            <p className="font-semibold">{machine.bouwjaar}</p>
-          </div>
-        )}
-      </div>
+      <GeoProductSection motortype={machine.motortype} merk={machine.merk} />
 
-      <div className="mb-8">
-        <ProductCards products={products} locale={locale} fuelLabel={fuelLabel} />
-      </div>
+      <AdSlot id="ad-slot-detail" />
 
-      <div className="mb-8">
+      <div className="mb-16">
         <RelatedMachines
           machines={relatedMachines || []}
           currentMachineId={machine.id}
