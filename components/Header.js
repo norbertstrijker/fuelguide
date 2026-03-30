@@ -15,6 +15,8 @@ export default function Header() {
   const pathname = usePathname()
   const router = useRouter()
 
+  const isHomepage = pathname === `/${locale}` || pathname === `/${locale}/`
+
   function switchLocale(newLocale) {
     const segments = pathname.split('/')
     const oldLocale = segments[1]
@@ -31,26 +33,30 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
-      <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-        <Link href={`/${locale}`} className="flex items-center gap-2">
-          <Image src="/logo.png" alt="FuelGuide" width={32} height={32} />
-          <span className="font-bold text-groen text-lg hidden sm:inline">FuelGuide</span>
+    <header className="sticky top-0 z-50 glass-header bg-surface/85">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <Link href={`/${locale}`} className="flex items-center gap-3 group">
+          <Image src="/logo.png" alt="FuelGuide" width={40} height={40} className="transition-transform duration-500 group-hover:scale-105" />
+          <span className="font-bold text-on-surface text-xl tracking-tighter uppercase hidden sm:inline">
+            FUELGUIDE
+          </span>
         </Link>
 
-        <div className="hidden sm:block flex-1 max-w-xs mx-4">
-          <SearchBar size="compact" />
-        </div>
+        {!isHomepage && (
+          <div className="hidden sm:block flex-1 max-w-xs mx-6">
+            <SearchBar size="compact" />
+          </div>
+        )}
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1">
           {Object.entries(LOCALE_LABELS).map(([loc, label]) => (
             <button
               key={loc}
               onClick={() => switchLocale(loc)}
-              className={`text-sm font-medium px-2 py-1 rounded ${
+              className={`text-xs font-bold tracking-label uppercase px-3 py-1.5 rounded transition-colors ${
                 loc === locale
-                  ? 'bg-groen text-white'
-                  : 'text-gray-500 hover:text-groen'
+                  ? 'bg-primary text-white'
+                  : 'text-on-surface/60 hover:text-primary hover:bg-surface-container-high'
               }`}
             >
               {label}
@@ -58,6 +64,7 @@ export default function Header() {
           ))}
         </div>
       </div>
+      <div className="h-px w-full bg-surface-container-low" />
     </header>
   )
 }
