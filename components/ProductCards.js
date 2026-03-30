@@ -1,70 +1,95 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+import { Check, Zap, Shield, Star } from 'lucide-react'
+import { regionLabel, formatPrice, regionCurrency } from '@/lib/geo'
 
-const TIER_CONFIG = {
-  basis: { label: 'basic', color: 'bg-gray-100 border-gray-200' },
-  beter: { label: 'better', color: 'bg-green-50 border-green-200' },
-  best: { label: 'best', color: 'bg-oranje/5 border-oranje/30' },
-}
-
-export default function ProductCards({ products, locale, fuelLabel }) {
+export default function ProductCards({ products, region }) {
   const t = useTranslations('products')
 
   if (!products || products.length === 0) {
     return (
       <div>
-        <h2 className="text-xl font-bold mb-4">{t('title')}</h2>
-        <p className="text-gray-600 bg-gray-50 rounded-lg p-4">
-          {t('no_products', { fuel: fuelLabel || 'E10' })}
+        <h2 className="text-xs font-bold tracking-label uppercase text-outline mb-6">{t('title')}</h2>
+        <p className="text-on-surface-variant bg-surface-container-low rounded p-4">
+          {t('no_products', { fuel: 'E10' })}
         </p>
       </div>
     )
   }
 
+  const tiers = {
+    basic: { icon: Check, ctaClass: 'bg-surface-container-high text-on-surface hover:bg-surface-container-highest' },
+    better: { icon: Zap, ctaClass: 'signature-gradient text-white hover:opacity-90 shadow-lg shadow-primary/20' },
+    best: { icon: Star, ctaClass: 'bg-on-surface text-surface hover:bg-black' },
+  }
+
+  const sorted = [...products].sort((a, b) => {
+    const order = { basic: 0, better: 1, best: 2 }
+    return (order[a.kwaliteit] || 0) - (order[b.kwaliteit] || 0)
+  })
+
+  const currency = regionCurrency(region)
+  const platform = regionLabel(region)
+
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">{t('title')}</h2>
-      <div className="grid sm:grid-cols-3 gap-4">
-        {products.map((product) => {
-          const tier = TIER_CONFIG[product.kwaliteit] || TIER_CONFIG.basis
-          const isBest = product.kwaliteit === 'best'
+      <h2 className="text-xs font-bold tracking-label uppercase text-outline mb-6">{t('title')}</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {sorted.map((product) => {
+          const tier = tiers[product.kwaliteit] || tiers.basic
+          const isBetter = product.kwaliteit === 'better'
+          const Icon = tier.icon
 
           return (
-            <Card key={product.id} className={`relative ${tier.color} border`}>
-              {isBest && (
-                <Badge className="absolute -top-2 right-3 bg-oranje text-white">
-                  {t('recommended')}
-                </Badge>
+            <div
+              key={product.id}
+              className={`rounded flex flex-col h-full ${
+                isBetter ? 'bg-on-surface p-1' : 'bg-surface-container-low p-1'
+              }`}
+            >
+              {isBetter && (
+                <div className="flex justify-end px-4 pt-3">
+                  <span className="signature-gradient px-3 py-1 rounded text-[9px] font-bold tracking-label text-white uppercase">
+                    {t('recommended')}
+                  </span>
+                </div>
               )}
-              <CardContent className="p-5">
+              <div className={`${isBetter ? 'bg-surface-container-lowest' : 'bg-surface'} p-8 flex-grow rounded`}>
+                <div className="mb-8">
+                  <span className="text-[10px] font-bold tracking-label text-on-secondary-container uppercase block mb-4">
+                    {t(product.kwaliteit)}
+                  </span>
+                  <h3 className="text-lg font-bold mb-2">{product.naam}</h3>
+                  {product.prijs && (
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-4xl font-bold tracking-tighter text-on-surface">
+                        {formatPrice(product.prijs, currency)}
+                      </span>
+                    </div>
+                  )}
+                </div>
                 {product.afbeelding_url && (
-                  <img
-                    src={product.afbeelding_url}
-                    alt={product.naam}
-                    className="w-full h-32 object-contain mb-3"
-                  />
+                  <img src={product.afbeelding_url} alt={product.naam} className="w-full h-32 object-contain mb-6" />
                 )}
-                <p className="text-xs font-medium text-gray-500 uppercase mb-1">
-                  {t(tier.label)}
-                </p>
-                <h3 className="font-semibold mb-2">{product.naam}</h3>
-                <p className="text-sm text-gray-600 mb-3">{product.beschrijving}</p>
-                {product.prijs && (
-                  <p className="text-lg font-bold mb-3">€{product.prijs}</p>
+              </div>
+              <div className={`p-4 ${isBetter ? 'bg-on-surface' : ''}`}>
+                {product.affiliate_url ? (
+                  <a
+                    href={product.affiliate_url}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className={`block w-full py-4 rounded font-bold text-xs tracking-label uppercase text-center transition-all active:scale-[0.98] ${tier.ctaClass}`}
+                  >
+                    {t('view_on', { platform })}
+                  </a>
+                ) : (
+                  <span className="block w-full py-4 rounded font-bold text-xs tracking-label uppercase text-center bg-surface-container-high text-on-surface-variant">
+                    {t('view_on', { platform })}
+                  </span>
                 )}
-                {product.affiliate_url && (
-                  <Button asChild className="w-full bg-oranje hover:bg-oranje/90 text-white">
-                    <a href={product.affiliate_url} target="_blank" rel="noopener noreferrer nofollow">
-                      {t('view_on')}
-                    </a>
-                  </Button>
-                )}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           )
         })}
       </div>
